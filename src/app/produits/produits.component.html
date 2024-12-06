@@ -8,6 +8,7 @@
                     <th>Prix</th>
                     <th>Date Création</th>
                     <th>Categorie</th>
+                    <th>Image</th>
                     <th>Action</th>
                 </tr>
                 <tbody>
@@ -17,6 +18,9 @@
                         <td>{{produit.price}}</td>
                         <td>{{ produit.created_at  }}</td>
                         <td>{{produit.categorie.nom}}</td>
+                        <td>
+                          <img class="card-img-top img-responsive" src="{{produit.imageStr}}" style="height :50px;width:100px">
+                        </td>
                         <td>
                             <a class="btn btn-danger mx-2" (click)="deleteProduit(produit)" *ngIf="authService.isAdmin()">Supprimer</a>
                             <a class="btn btn-success" [routerLink]="['/update-produit',produit.id]" *ngIf="authService.isAdmin()">Modifier</a>

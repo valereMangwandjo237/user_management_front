@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { apiURL, apiURLCat } from '../app.config';
 import { CategorieWrapper } from '../models/categorieWarpped.model';
 import { AuthService } from './auth/auth.service';
+import { Image } from '../models/image.model';
 
 const httpOption = {
   headers: new HttpHeaders( {'Content-Type': 'application/json'} )
@@ -25,7 +26,7 @@ export class ProduitService {
     let jwt = this.auhtService.getToken()
     jwt = "Bearer " + jwt
     let httpHeaders = new HttpHeaders({"Authorization": jwt})
-    
+
     return this.http.get<Produit[]>(apiURL+"/all")
   }
 
@@ -33,7 +34,7 @@ export class ProduitService {
     let jwt = this.auhtService.getToken()
     jwt = "Bearer " + jwt
     let httpHeaders = new HttpHeaders({"Authorization": jwt})
-    
+
     return this.http.get<CategorieWrapper>(apiURLCat, {headers: httpHeaders})
   }
 
@@ -54,7 +55,7 @@ export class ProduitService {
     let jwt = this.auhtService.getToken()
     jwt = "Bearer " + jwt
     let httpHeaders = new HttpHeaders({"Authorization": jwt})
-    
+
     return this.http.post<Produit[]>(apiURL+"/addprod", produit, {headers: httpHeaders})
   }
 
@@ -63,7 +64,7 @@ export class ProduitService {
     let jwt = this.auhtService.getToken()
     jwt = "Bearer " + jwt
     let httpHeaders = new HttpHeaders({"Authorization": jwt})
-    
+
     return this.http.delete<Produit[]>(url, {headers: httpHeaders})
   }
 
@@ -72,7 +73,7 @@ export class ProduitService {
     let jwt = this.auhtService.getToken()
     jwt = "Bearer " + jwt
     let httpHeaders = new HttpHeaders({"Authorization": jwt})
-    
+
     return this.http.get<Produit>(url, {headers: httpHeaders})
   }
 
@@ -94,7 +95,7 @@ export class ProduitService {
     let jwt = this.auhtService.getToken()
     jwt = "Bearer " + jwt
     let httpHeaders = new HttpHeaders({"Authorization": jwt})
-    
+
     return this.http.put<Produit>(url, produit, {headers: httpHeaders})
   }
 
@@ -106,6 +107,19 @@ export class ProduitService {
   rechercherByName(nom: String):Observable<Produit[]> {
     const url = `${apiURL}/prodsByName/${nom}`;
     return this.http.get<Produit[]>(url);
+  }
+
+  uploadImage(file: File, filename: string): Observable<Image>{
+    const url = `${apiURL + '/image/upload'}`;
+    const imageFormData = new FormData()
+    imageFormData.append("image", file, filename)
+
+    return this.http.post<Image>(url, imageFormData);
+  }
+
+  loadImage(id: number): Observable<Image>{
+    const url = `${apiURL + 'image/get/info'}/${id}`;
+    return this.http.get<Image>(url);
   }
 }
 

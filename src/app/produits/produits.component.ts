@@ -4,6 +4,7 @@ import { Produit } from '../models/produit.model';
 import { ProduitService } from '../services/produit.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
+import { Image } from '../models/image.model';
 
 @Component({
   selector: 'app-produits',
@@ -30,6 +31,12 @@ export class ProduitsComponent implements OnInit{
     this.produitService.listeProduits().subscribe(
       prods => {
         this.produits = prods;
+        console.log(this.produits)
+        this.produits.forEach((prod) => {
+          this.produitService.loadImage(prod.image.idImage).subscribe(
+            (img: Image) => { prod.imageStr = "data:" + img.type + ";base64," + img.image }
+          )
+        })
       }
     );
   }

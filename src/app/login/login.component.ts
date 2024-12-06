@@ -31,6 +31,9 @@ export class LoginComponent {
         this.error = 1
         if (err.error.errorCause=='disabled')
           this.message="Utilisateur désactivé, Veuillez contacter votre Administrateur";
+        if(err.error.errorCause=="HttpErrorResponse")
+          this.message="Erreur du serveur. Veuillez contacter votre Administrateur";
+
       }
     })
   }

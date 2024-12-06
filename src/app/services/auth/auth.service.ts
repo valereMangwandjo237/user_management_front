@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   users: User[] = [
     {"username":"admin","password":"123", "email": "abc@gmail.com", "enable":true, "roles":['ADMIN']},
-    {"username":"madara","password":"123","email": "abcd@gmail.com", "enable":true,"roles":['USER']} 
+    {"username":"madara","password":"123","email": "abcd@gmail.com", "enable":true,"roles":['USER']}
   ]
 
   public loggedUser: String = undefined!
@@ -94,7 +94,7 @@ export class AuthService {
         localStorage.setItem("loggedUser", String(this.loggedUser))
         localStorage.setItem("isLoggedIn", String(this.isLoggedIn))
       }
-      
+
     })
 
     return validuser
@@ -103,7 +103,7 @@ export class AuthService {
   isAdmin(): boolean{
     if(!this.roles){ //this.roles== undefiened
       return false
-    } 
+    }
     return (this.roles.indexOf("ADMIN") >= 0)
   }
 
